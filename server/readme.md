@@ -6,20 +6,20 @@
     Request Body
     ```json
     {
-        email : string,
-        password : string
+        "email" : "string",
+        "password" : "string"
     }
     ```
     **200** : User Registered Successfully and session cookie is set
     
     Response Data
 
-    ```
+    ```json
     {
-        status: "success",
-		data: {
-			user: {
-                email : string
+        "status": "success",
+		"data": {
+			"user": {
+                "email" : "string"
             },
 		},
     }
@@ -36,20 +36,20 @@
     Request Body
     ```json
     {
-        email : string,
-        password : string
+        "email" : "string",
+        "password" : "string"
     }
     ```
     **200** : User Logged In Successfully Session cookie set.
     
     Response Data
 
-    ```
+    ```json
     {
-        status: "success",
-		data: {
-			user: {
-                email : string
+        "status": "success",
+		"data": {
+			"user": {
+                "email" : "string"
             },
 		},
     }
@@ -70,12 +70,12 @@
     
     Response Data
 
-    ```
+    ```json
     {
-        status: "success",
-		data: {
-			user: {
-                email : string
+        "status": "success",
+		"data": {
+			"user": {
+                "email" : "string"
             },
 		},
     }
@@ -87,12 +87,12 @@
 
     Response Data
 
-    ```
+    ```json
     {
-        status: "success",
-		data: {
-			user: {
-                email : string
+        "status": "success",
+		"data": {
+			"user": {
+                "email" : "string"
             },
 		},
     }
@@ -104,10 +104,10 @@
 > ## Note
 > Check for 500 status code errors which are errors on the server side.
 ### Generic Error Data
-```
+```json
 {
-    status : "fail",
-    message : string,
-    error : ErrorObject
+    "status" : "fail",
+    "message" : "string",
+    "error" : "ErrorObject"
 }
 ```

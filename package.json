@@ -1,0 +1,13 @@
+{
+	"name": "auth-example",
+	"version": "1.0.0",
+	"description": "Authentication example for email passeord auth and OAuth",
+	"main": "\"\"",
+	"author": "<atharva.bhange@gmail.com>",
+	"license": "MIT",
+	"private": true,
+	"workspaces": [
+		"client",
+		"server"
+	]
+}

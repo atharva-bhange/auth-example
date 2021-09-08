@@ -101,6 +101,7 @@ const Login: React.FC = () => {
 					<button type="submit">Submit</button>
 				</Form>
 			</Formik>
+			<a href="http://localhost:4000/api/v1/auth/google">Login With Google</a>
 			{login.isLoading || register.isLoading ? <p>Loading</p> : undefined}
 		</div>
 	);

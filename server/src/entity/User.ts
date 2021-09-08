@@ -14,15 +14,15 @@ export class User extends BaseEntity {
 	id: number;
 
 	@IsEmail()
-	@Column()
+	@Column({ unique: true })
 	email: string;
 
 	@Length(8)
-	@Column()
+	@Column({ nullable: true })
 	password: string;
 
 	@BeforeInsert()
 	hashPassword() {
-		this.password = hashSync(this.password, 12);
+		if (this.password) this.password = hashSync(this.password, 12);
 	}
 }

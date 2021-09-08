@@ -36,14 +36,15 @@ const Navigation: React.FC = () => {
 				return true;
 			},
 			onSuccess: (data) => {
-				if (data.status === 200) {
+				if (data.status === 200 && !user.isAuthenticated) {
 					setUser({ isAuthenticated: true, ...data.data.data.user });
 				}
 			},
 			onError: (err) => {
-				if ((err as any).response.status === 401)
+				if ((err as any).response.status === 401 && user.isAuthenticated)
 					setUser({ email: null, isAuthenticated: false });
 			},
+			refetchOnWindowFocus: false,
 		}
 	);
 

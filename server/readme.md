@@ -26,10 +26,16 @@
     ```
 
     **440** : email or password not submitted
+
     Response Data : See generic error message [here](#Generic-Error-Data)
 
     **400** : data passed did not pass validation
+
     Response Data : See generic error message [here](#Generic-Error-Data)
+
+    **409** : email submitted is already registered. Please log in.
+
+    Response Data : See generic error message [here](#Generic-Error-Data) 
 
 - **POST** `api/v1/users/login` : Login using email and password   
 
@@ -56,13 +62,20 @@
     ```
 
     **440** : email or password not submitted
+
     Response Data : See generic error message [here](#Generic-Error-Data)
 
     **400** : data passed did not pass validation
+
     Response Data : See generic error message [here](#Generic-Error-Data)
 
     **401** : incorrect email or password
+
     Response Data : See generic error message [here](#Generic-Error-Data)
+
+    **402** : the email given with login is associated with social login.
+
+    Response Data : See generic error message [here](#Generic-Error-Data)    
 
 - **POST** `api/v1/users/logout` : logout user and delete user session
   
@@ -100,9 +113,10 @@
 
     **401** : This user was not found. 
 
+- **GET** `/api/v1/auth/google` : login with google. User is redirected to google website for login. User will be redirected to <FRONTEND_URL>/dashboard  on success and <FRONTEND_URL>/login on failure. 
 ***
-> ## Note
-> Check for 500 status code errors which are errors on the server side.
+> ## Note:
+> Check for 500 status code errors which are errors on the server side should be handled on the client with some generic error.
 ### Generic Error Data
 ```json
 {

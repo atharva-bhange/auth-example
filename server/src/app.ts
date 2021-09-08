@@ -4,7 +4,7 @@ import session from "express-session";
 import redisConnect from "connect-redis";
 import redis from "redis";
 import cors from "cors";
-
+import passport from "passport";
 declare module "express-session" {
 	interface SessionData {
 		userId: number;
@@ -14,17 +14,21 @@ declare module "express-session" {
 const redisClient = redis.createClient({ port: 6379 });
 
 import userRoutes from "./routes/userRoutes";
+import googleAuthRoutes from "./routes/googleAuthroutes";
 import globalErrorhandler from "./controllers/errorController";
 import AppError from "./utils/AppError";
+import configureGoogleAuth from "./utils/configureGoogleAuth";
 
 const RedisStore = redisConnect(session);
+
+const { FRONTEND_CLIENT = "http://localhost:3000" } = process.env;
 
 const app = express();
 
 app.use(
 	cors({
 		credentials: true,
-		origin: process.env.FRONTEND_CLIENT || "http://localhost:3000",
+		origin: FRONTEND_CLIENT,
 	})
 );
 
@@ -49,10 +53,16 @@ app.use(
 	})
 );
 
+app.use(passport.initialize());
+
+configureGoogleAuth();
+
+app.use("/api/v1/auth/google", googleAuthRoutes);
+
 app.use("/api/v1/users", userRoutes);
 
 app.use("*", (req, res, next) => {
-	next(new AppError("No resource found onthis route", 404));
+	next(new AppError("No resource found on this route", 404));
 });
 
 app.use(globalErrorhandler);

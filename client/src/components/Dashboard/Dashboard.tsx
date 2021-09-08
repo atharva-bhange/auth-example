@@ -11,6 +11,7 @@ const Dashboard: React.FC = () => {
 
 	const logout = useMutation("logout", () => api.post("/users/logout"), {
 		onSuccess: (data) => {
+			user.setUser({ email: null, isAuthenticated: false });
 			if (data.status === 200) history.push("/");
 		},
 	});

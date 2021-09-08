@@ -12,6 +12,16 @@ export const register: RequestHandler = async (req, res, next) => {
 	if (!email || !password)
 		return next(new AppError("Please Provide Email and Password", 440));
 
+	let existingUser = getConnection()
+		.getRepository(User)
+		.createQueryBuilder("user")
+		.where("user.email = :email", { email: email });
+
+	if (existingUser)
+		return next(
+			new AppError("This email is already registered. Please log in.", 409)
+		);
+
 	let newUser = User.create({
 		email: email,
 		password: password,
@@ -52,6 +62,11 @@ export const login: RequestHandler = async (req, res, next) => {
 		return next(new AppError("Validation Error", 400, errors));
 
 	let user = await existingUser.getOne();
+
+	if (!user.password)
+		return next(
+			new AppError("This email is associated with social login!", 402)
+		);
 
 	if (!existingUser || !(await compare(password, user.password)))
 		return next(new AppError("Incorrect email or password", 401));

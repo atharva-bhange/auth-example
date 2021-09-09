@@ -102,6 +102,15 @@ const Login: React.FC = () => {
 				</Form>
 			</Formik>
 			<a href="http://localhost:4000/api/v1/auth/google">Login With Google</a>
+			<br />
+			<a href="http://localhost:4000/api/v1/auth/twitter">Login With Twitter</a>
+			{login.isLoading || register.isLoading ? <p>Loading</p> : undefined}
+			<br />
+			<a href="http://localhost:4000/api/v1/auth/facebook">
+				Login With Facebook
+			</a>
+			<br />
+			<a href="http://localhost:4000/api/v1/auth/github">Login With Github</a>
 			{login.isLoading || register.isLoading ? <p>Loading</p> : undefined}
 		</div>
 	);

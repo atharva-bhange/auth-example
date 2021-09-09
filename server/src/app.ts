@@ -15,9 +15,15 @@ const redisClient = redis.createClient({ port: 6379 });
 
 import userRoutes from "./routes/userRoutes";
 import googleAuthRoutes from "./routes/googleAuthroutes";
+import twitterAuthRoutes from "./routes/twitterAuthRoutes";
+import facebookAuthRoutes from "./routes/facebookAuthRouter";
+import githubAuthRoutes from "./routes/githubAuthRouter";
 import globalErrorhandler from "./controllers/errorController";
 import AppError from "./utils/AppError";
 import configureGoogleAuth from "./utils/configureGoogleAuth";
+import configureTwitterAuth from "./utils/configureTwitterAuth";
+import configureFacebookAuth from "./utils/configureFacebookAuth";
+import configureGithubAuth from "./utils/configureGithubAuth";
 
 const RedisStore = redisConnect(session);
 
@@ -57,7 +63,19 @@ app.use(passport.initialize());
 
 configureGoogleAuth();
 
+configureTwitterAuth();
+
+configureFacebookAuth();
+
+configureGithubAuth();
+
 app.use("/api/v1/auth/google", googleAuthRoutes);
+
+app.use("/api/v1/auth/twitter", twitterAuthRoutes);
+
+app.use("/api/v1/auth/facebook", facebookAuthRoutes);
+
+app.use("/api/v1/auth/github", githubAuthRoutes);
 
 app.use("/api/v1/users", userRoutes);
 

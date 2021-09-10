@@ -27,7 +27,8 @@ import configureGithubAuth from "./utils/configureGithubAuth";
 
 const RedisStore = redisConnect(session);
 
-const { FRONTEND_CLIENT = "http://localhost:3000" } = process.env;
+const { FRONTEND_CLIENT = "http://localhost:3000", LATENCY = "0" } =
+	process.env;
 
 const app = express();
 
@@ -37,6 +38,12 @@ app.use(
 		origin: FRONTEND_CLIENT,
 	})
 );
+
+app.use((_, __, next) => {
+	setTimeout(() => {
+		next();
+	}, parseInt(LATENCY));
+});
 
 if (process.env.NODE_ENV === "development") {
 	app.use(morgan("dev"));

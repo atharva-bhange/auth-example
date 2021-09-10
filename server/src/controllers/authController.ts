@@ -12,10 +12,11 @@ export const register: RequestHandler = async (req, res, next) => {
 	if (!email || !password)
 		return next(new AppError("Please Provide Email and Password", 440));
 
-	let existingUser = getConnection()
+	let existingUser = await getConnection()
 		.getRepository(User)
 		.createQueryBuilder("user")
-		.where("user.email = :email", { email: email });
+		.where("user.email = :email", { email: email })
+		.getOne();
 
 	if (existingUser)
 		return next(
@@ -63,12 +64,12 @@ export const login: RequestHandler = async (req, res, next) => {
 
 	let user = await existingUser.getOne();
 
-	if (!user.password)
+	if (user && !user.password)
 		return next(
 			new AppError("This email is associated with social login!", 402)
 		);
 
-	if (!existingUser || !(await compare(password, user.password)))
+	if (!user || !(await compare(password, user.password)))
 		return next(new AppError("Incorrect email or password", 401));
 
 	req.session.userId = user.id;

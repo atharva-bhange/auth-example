@@ -21,6 +21,7 @@ import { createConnection } from "typeorm";
 	const port = process.env.PORT || 4000;
 	app.listen(port, () => {
 		console.log(`[SERVER STARTED] Server started on http://localhost:${port}`);
+		if (process.env.LATENCY) console.log(`[LATENCY] ${process.env.LATENCY}`);
 	});
 })().catch((err) => {
 	console.log(err);

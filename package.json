@@ -11,7 +11,7 @@
 		"server"
 	],
 	"scripts": {
-		"postinstall": "yarn install --prefix server && yarn run build --prefix server",
+		"build": "cd server && yarn build",
 		"start": "node server/dist/index.js"
 	}
 }

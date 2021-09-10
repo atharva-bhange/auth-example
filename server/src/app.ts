@@ -12,7 +12,7 @@ declare module "express-session" {
 // const redisClient = redis.createClient({ port: 6379 });
 
 import userRoutes from "./routes/userRoutes";
-import googleAuthRoutes from "./routes/googleAuthroutes";
+import googleAuthRoutes from "./routes/googleAuthRoutes";
 import twitterAuthRoutes from "./routes/twitterAuthRoutes";
 import facebookAuthRoutes from "./routes/facebookAuthRouter";
 import githubAuthRoutes from "./routes/githubAuthRouter";

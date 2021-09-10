@@ -6,13 +6,13 @@ type Props = React.HTMLProps<HTMLInputElement> & {
 };
 
 const FormError: React.FC<Props> = (props) => {
-	const [_, meta] = useField(props.name);
+	const field = useField(props.name);
 
 	return (
 		<>
-			{meta.error && (
+			{field[1].error && (
 				<div className="text-center text-red-500" {...props}>
-					{meta.error}
+					{field[1].error}
 				</div>
 			)}
 		</>

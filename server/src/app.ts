@@ -1,8 +1,6 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
-import redisConnect from "connect-redis";
-import redis from "redis";
 import cors from "cors";
 import passport from "passport";
 declare module "express-session" {
@@ -11,7 +9,7 @@ declare module "express-session" {
 	}
 }
 
-const redisClient = redis.createClient({ port: 6379 });
+// const redisClient = redis.createClient({ port: 6379 });
 
 import userRoutes from "./routes/userRoutes";
 import googleAuthRoutes from "./routes/googleAuthroutes";
@@ -24,8 +22,6 @@ import configureGoogleAuth from "./utils/configureGoogleAuth";
 import configureTwitterAuth from "./utils/configureTwitterAuth";
 import configureFacebookAuth from "./utils/configureFacebookAuth";
 import configureGithubAuth from "./utils/configureGithubAuth";
-
-const RedisStore = redisConnect(session);
 
 const { FRONTEND_CLIENT = "http://localhost:3000", LATENCY = "0" } =
 	process.env;
@@ -57,7 +53,6 @@ app.use(
 		resave: false,
 		secret: process.env.SESSION_SECRET,
 		saveUninitialized: true,
-		store: new RedisStore({ client: redisClient }),
 		cookie: {
 			maxAge: 1000 * 60 * 60 * 24 * 7,
 			httpOnly: true,

@@ -19,7 +19,9 @@
 		"ts-node-dev": "^1.1.8"
 	},
 	"scripts": {
-		"start": "tsnd --respawn src/index.ts"
+		"start": "tsnd --respawn src/index.ts",
+		"build": "tsc",
+		"prod": "node dist/index.js"
 	},
 	"dependencies": {
 		"bcryptjs": "^2.4.3",

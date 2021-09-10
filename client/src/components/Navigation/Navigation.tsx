@@ -7,6 +7,7 @@ import Login from "components/Login";
 import Dashboard from "components/Dashboard";
 import ProtectedRoute from "components/ProtectedRoute";
 import api from "api";
+import Loader from "components/Loader";
 
 interface User {
 	email: string | null;
@@ -27,28 +28,44 @@ const Navigation: React.FC = () => {
 		isAuthenticated: false,
 	});
 
+	const [error, setError] = useState<string | null>(null);
+
 	const { status } = useQuery(
 		"isAuthenticated",
 		() => api.get("/users/login"),
 		{
-			retry: (_, err) => {
-				if ((err as any).response.status === 401) return false;
-				return true;
-			},
+			retry: false,
 			onSuccess: (data) => {
 				if (data.status === 200 && !user.isAuthenticated) {
 					setUser({ isAuthenticated: true, ...data.data.data.user });
 				}
 			},
 			onError: (err) => {
+				if (!(err as any).response) {
+					setError(
+						"Backend server is down please contact developer at atharva.bhange@gmail.com"
+					);
+					return;
+				}
 				if ((err as any).response.status === 401 && user.isAuthenticated)
 					setUser({ email: null, isAuthenticated: false });
 			},
 			refetchOnWindowFocus: false,
 		}
 	);
+	if (error !== null)
+		return (
+			<div className="flex items-center justify-center w-screen h-screen bg-blue-800">
+				<div className="text-2xl text-center text-white">{error}</div>
+			</div>
+		);
 
-	if (status === "loading") return <div>Loading</div>;
+	if (status === "loading")
+		return (
+			<div className="flex items-center justify-center w-screen h-screen bg-blue-800">
+				<Loader />
+			</div>
+		);
 
 	return (
 		<UserContext.Provider value={{ setUser, ...user }}>

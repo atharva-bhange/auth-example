@@ -9,8 +9,8 @@ const Loader: React.FC<Props> = (props) => {
 
 	return (
 		<div
-			style={{ borderTopColor: "white" }}
-			className={`w-${size} h-${size}  ease-linear border-4 border-t-4 border-gray-500 rounded-full animate-spin`}
+			style={{ borderTopColor: "white", borderRadius: "50%" }}
+			className={`w-${size} h-${size}  ease-linear border-4 border-gray-500  animate-spin`}
 			{...props}
 		/>
 	);

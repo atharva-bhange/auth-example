@@ -3,13 +3,17 @@ import morgan from "morgan";
 import session from "express-session";
 import cors from "cors";
 import passport from "passport";
+import redisConnect from "connect-redis";
+import redis from "redis";
 declare module "express-session" {
 	interface SessionData {
 		userId: number;
 	}
 }
 
-// const redisClient = redis.createClient({ port: 6379 });
+const redisClient = redis.createClient(process.env.REDIS_URL);
+
+const RedisStore = redisConnect(session);
 
 import userRoutes from "./routes/userRoutes";
 import googleAuthRoutes from "./routes/googleAuthRoutes";
@@ -53,6 +57,7 @@ app.use(
 		resave: false,
 		secret: process.env.SESSION_SECRET,
 		saveUninitialized: true,
+		store: new RedisStore({ client: redisClient }),
 		cookie: {
 			maxAge: 1000 * 60 * 60 * 24 * 7,
 			httpOnly: true,

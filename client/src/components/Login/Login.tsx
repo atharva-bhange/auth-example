@@ -30,8 +30,6 @@ const Login: React.FC = () => {
 				user.setUser({ isAuthenticated: true, ...data.data.data.user });
 				history.push("/dashboard");
 			},
-			onError: (data) => {},
-			// TODO : Handle Errors here just in case
 		}
 	);
 	const register = useMutation(
@@ -41,7 +39,6 @@ const Login: React.FC = () => {
 				user.setUser({ isAuthenticated: true, ...data.data.data.user });
 				history.push("/dashboard");
 			},
-			// TODO : Handle Errors just in case
 		}
 	);
 	if (user.isAuthenticated) return <Redirect to="/dashboard" />;
@@ -117,7 +114,7 @@ const Login: React.FC = () => {
 								>
 									{register.isLoading && (
 										<div className="mr-2">
-											<Loader size={7} />
+											<Loader className="w-7 h-7 loader" />
 										</div>
 									)}
 
@@ -179,7 +176,7 @@ const Login: React.FC = () => {
 								>
 									{login.isLoading && (
 										<div className="mr-2">
-											<Loader size={7} />
+											<Loader className="w-7 h-7 loader" />
 										</div>
 									)}
 

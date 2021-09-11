@@ -63,7 +63,7 @@ const Navigation: React.FC = () => {
 	if (status === "loading")
 		return (
 			<div className="flex items-center justify-center w-screen h-screen bg-blue-800">
-				<Loader />
+				<Loader className="w-10 h-10 loader" />
 			</div>
 		);
 

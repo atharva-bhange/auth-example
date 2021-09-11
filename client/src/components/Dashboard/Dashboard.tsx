@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
 				>
 					{logout.isLoading && (
 						<div className="mr-2">
-							<Loader size={7} />
+							<Loader className="w-7 h-7 loader" />
 						</div>
 					)}
 

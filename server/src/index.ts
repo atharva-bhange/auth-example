@@ -12,6 +12,10 @@ import { createConnection } from "typeorm";
 		synchronize: true,
 		logging: true,
 		entities: ["src/entity/*.*"],
+		ssl:
+			process.env.NODE_ENV === "production"
+				? { rejectUnauthorized: false }
+				: undefined,
 	});
 
 	const port = process.env.PORT || 4000;

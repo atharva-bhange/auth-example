@@ -11,7 +11,9 @@ import { createConnection } from "typeorm";
 		url: process.env.DATABASE_URL,
 		synchronize: true,
 		logging: true,
-		entities: ["src/entity/*.*"],
+		entities: [
+			`${process.env.NODE_ENV === "production" ? "dist" : "src"}/entity/*.*`,
+		],
 		ssl:
 			process.env.NODE_ENV === "production"
 				? { rejectUnauthorized: false }

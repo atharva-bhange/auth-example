@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import app from "./app";
 import { createConnection } from "typeorm";
+import { User } from "./entity/User";
 
 (async () => {
 	await createConnection({
@@ -11,9 +12,7 @@ import { createConnection } from "typeorm";
 		url: process.env.DATABASE_URL,
 		synchronize: true,
 		logging: true,
-		entities: [
-			`${process.env.NODE_ENV === "production" ? "dist" : "src"}/entity/*.*`,
-		],
+		entities: [User],
 		ssl:
 			process.env.NODE_ENV === "production"
 				? { rejectUnauthorized: false }
